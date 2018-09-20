@@ -27,12 +27,12 @@ public class EsClientConfig {
     //日志信息打印
    private  static  Logger logger = LoggerFactory.getLogger(EsClientConfig.class);
 
-   @Value("${elasticsearch..name}")
+   @Value("${elasticsearch.name}")
     private String name;
-
+//
    @Value("${elasticsearch.node}")
     private String hosts;
-
+//
    @Value("${elasticsearch.post}")
     private int post;
 

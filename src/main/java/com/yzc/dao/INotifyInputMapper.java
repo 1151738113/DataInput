@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * Created by wei.wang on 2018/9/12 0012.
- * 数据库查询
+ * 数据库查询  '2018-09-11 14:24:36'
  */
 @Repository
 public interface INotifyInputMapper {
@@ -19,13 +19,13 @@ public interface INotifyInputMapper {
      * @param size
      * @return
      */
-    List<Tsmnoticesendlogs> getNotify(@Param("offSet") int offSet, @Param("size") int size);
+    List<Tsmnoticesendlogs> getNotify(@Param("offSet") int offSet, @Param("size") int size, @Param("time") String time);
 
     /**
      * 获得总数
      * @return
      */
-    long getCount();
+    long getCount(@Param("time") String time);
 
 
 }

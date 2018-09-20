@@ -1,0 +1,38 @@
+"settings":{
+            "number_of_shards" : 5,
+            "number_of_replicas" : 1,
+            "analysis" : {
+                "analyzer" : {
+                    "default_pinyin_analyzer" : {
+                        "type" : "custom",
+                        "tokenizer" : "default_pinyin_tokenizer"
+                    }
+                },
+                "tokenizer" : {
+                    "default_pinyin_tokenizer" : {
+                        "type" : "pinyin",
+                        "keep_separate_first_letter" : true,
+                        "keep_joined_full_pinyin" : true,
+                        "keep_none_chinese_together" : true,
+                        "keep_none_chinese_in_joined_full_pinyin" : true,
+                        "limit_first_letter_length" : 16
+                    }
+                }
+            }
+},
+"mappings":{
+            "company" : {
+                "properties" : {
+                    "name" : {
+                        "type" : "string",
+                        "index" : "analyzed",
+                        "analyzer" : "ik_smart"
+                    },
+					"name_pinyin" : {
+                                "type" : "string",
+                                "index" : "analyzed",
+                                "analyzer" : "default_pinyin_analyzer"
+                   }
+                }
+            }
+}

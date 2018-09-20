@@ -4,14 +4,13 @@
 
     <select id="getCount" resultType="java.lang.Long">
         SELECT COUNT(*) FROM t_smnoticesendlogs
-        WHERE 1=1
+        WHERE 1=1 AND SendTime>='2018-09-11 14:24:36'
     </select>
 
     <select id="getNotify" resultType="com.yzc.model.Tsmnoticesendlogs">
-        SELECT * FROM t_smnoticesendlogs WHERE 1=1
+        SELECT * FROM t_smnoticesendlogs WHERE 1=1 AND SendTime>='2018-09-11 14:24:36'
         ORDER BY SendTime ASC
         LIMIT ${offSet}, ${size}
     </select>
-
 
 </mapper>

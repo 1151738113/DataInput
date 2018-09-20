@@ -2,6 +2,7 @@ package com.yzc.servers.impl;
 
 import com.google.common.collect.Maps;
 import com.yzc.dao.INotifyInputMapper;
+import com.yzc.es.EService;
 import com.yzc.es.EsClientConfig;
 import com.yzc.model.Tsmnoticesendlogs;
 import com.yzc.servers.ESDataInput;
@@ -48,7 +49,7 @@ public class ESDataInputImpl implements ESDataInput {
 
         TransportClient client = esClientConfig.getClient();
         //获取总数
-        long titol = iNotifyInput.getCount();
+        long titol = iNotifyInput.getCount("2018-09-11 14:24:36");
 
         //获取当前查询数量
         long start_now = titol - start;
@@ -61,7 +62,7 @@ public class ESDataInputImpl implements ESDataInput {
         //批量插入
         for (int i = 0; i <= times; i++) {
             //查询数据
-            List<Tsmnoticesendlogs> list = iNotifyInput.getNotify(start, size);
+            List<Tsmnoticesendlogs> list = iNotifyInput.getNotify(start, size, "'2018-09-11 14:24:36'");
             BulkRequestBuilder requestBuilder = client.prepareBulk();
             list.forEach(result -> setData(result,requestBuilder));
             BulkResponse response = requestBuilder.get();
@@ -72,7 +73,7 @@ public class ESDataInputImpl implements ESDataInput {
         System.out.println("导入时间--->"+(start_time-end_time)+" ms");
 
         //结束后再查一次数量更新数据（目的，防止数据导入时，数据存在更新）
-        long titol_now = iNotifyInput.getCount();
+        long titol_now = iNotifyInput.getCount("2018-09-11 14:24:36");
         if(titol_now == titol){
             return;
         }
@@ -80,7 +81,7 @@ public class ESDataInputImpl implements ESDataInput {
         float i = (titol_now - titol)/size;
         //从上次数据的最后一条更新
         for(int s=0; s<=i ;s++){
-            List<Tsmnoticesendlogs> list = iNotifyInput.getNotify((int)titol, size);
+            List<Tsmnoticesendlogs> list = iNotifyInput.getNotify((int)titol, size, "'2018-09-11 14:24:36'");
             BulkRequestBuilder requestBuilder = client.prepareBulk();
             list.forEach(result -> setData(result,requestBuilder));
             BulkResponse response = requestBuilder.get();
