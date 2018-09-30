@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta content="text/html;charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>拼音检索</title>
+</head>
+<body>
+<div>
+    <form name="search" action="/search" >
+        <input type="text" name="text">
+        <input type="submit" value="查询"/>
+    </form>
+</div>
+
+<h1>结果</h1>
+<tr th:each="String:${list}">
+    <td th:text="${String}"></td><br>
+</tr>
+</body>
+
+</html>
